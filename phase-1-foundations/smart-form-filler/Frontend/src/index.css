@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+
+#root{
+  margin: 0px;
+  padding: 0px;
+}
+
+body{
+  @apply  bg-[#0b0f14] text-gray-200 pb-10;
+}
+
+header{
+  @apply bg-white shadow-md sticky top-0 z-50;
+}
+
+
+
+
+/* Auto filled form styles */
+
+.auto-fill-form{
+  @apply bg-gray-800 p-6 rounded-lg shadow-md;
+}
+
+.auto-fill-form div{
+  @apply  flex flex-col gap-2 mb-4
+}
+
