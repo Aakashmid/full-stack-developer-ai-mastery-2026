@@ -7,8 +7,6 @@ const EmailInput = ({ onSubmit, loading }) => {
         onSubmit(emailText);
     };
 
-
-
     return (
         <div className='w-full sm:w-xl mx-auto mt-10'>
             <h2 className='text-xl'>Paste Raw Email</h2>

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { FaDeleteLeft } from "react-icons/fa6";
 const AutoFilledForm = ({ data }) => {
-    // const [name, setName] = useState("");
-    // const [date, setDate] = useState("");
-    // const [actions, setActions] = useState([]);
+    const [name, setName] = useState("");
+    const [date, setDate] = useState("");
+    const [actions, setActions] = useState([]);
 
-    // Custom data for testing/demo purposes
-    const [date, setDate] = useState("2024-01-15");
-    const [name, setName] = useState("John Doe");
-    const [actions, setActions] = useState(["Review documents", "Send email", "Schedule meeting"]);
+    // // Custom data for testing/demo purposes
+    // const [date, setDate] = useState("2024-01-15");
+    // const [name, setName] = useState("John Doe");
+    // const [actions, setActions] = useState(["Review documents", "Send email", "Schedule meeting"]);
 
     useEffect(() => {
         if (data) {
@@ -23,7 +23,7 @@ const AutoFilledForm = ({ data }) => {
         setActions(updatedActions);
     }
     return (
-        <div className="auto-fill-form w-full sm:w-xl mx-auto mt-10">
+        <div className="auto-fill-form w-full sm:w-xl mx-auto mt-10" id="auto_fill_form">
             <h2 className="text-xl mb-4">Auto-Filled Schedule</h2>
 
             <div className="">
