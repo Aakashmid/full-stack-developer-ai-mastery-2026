@@ -1,3 +1,5 @@
 venv/
 global-venv/
 .env
+
+local_chromaDb/
