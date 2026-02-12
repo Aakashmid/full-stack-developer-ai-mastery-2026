@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import include, path, re_path
 
+from django.conf import settings
+from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 
@@ -12,6 +14,8 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 
+
+    # Authentication URLs
     path("login/", LoginPage.as_view(), name="login"),
     path("api/v1/auth/", include("dj_rest_auth.urls")),
 
@@ -27,4 +31,11 @@ urlpatterns = [
         GoogleLoginCallback.as_view(),
         name="google_login_callback",
     ),
+
+
+    path("api/v1/", include("documents.urls")),
 ]
+
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
