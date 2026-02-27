@@ -33,7 +33,12 @@ urlpatterns = [
     ),
 
 
-    path("api/v1/", include("documents.urls")),
+
+    # chat session and query management
+    path("api/v1/c/", include("chat.urls")),
+
+    # documents and category management 
+    path("api/v1/", include("documents.urls")),  
 ]
 
 

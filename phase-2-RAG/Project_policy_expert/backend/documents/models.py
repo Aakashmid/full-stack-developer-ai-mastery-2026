@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator
 User = get_user_model()
 
 class Category(models.Model):
-    user = models.ForeignKey(
+    created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="categories"
@@ -31,7 +31,7 @@ class Document(models.Model):
         ("failed", "Failed"),
     )
 
-    user = models.ForeignKey(
+    uploaded_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="documents"
@@ -39,7 +39,7 @@ class Document(models.Model):
 
     category = models.ForeignKey(
         Category,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
         related_name="documents"
