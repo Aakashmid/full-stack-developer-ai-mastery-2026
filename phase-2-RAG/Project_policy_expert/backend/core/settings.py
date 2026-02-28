@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "corsheaders",
     # "django_extensions",
+    'drf_spectacular',
     "rest_framework",
     "rest_framework.authtoken",
     "allauth",
@@ -54,8 +55,10 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "dj_rest_auth.registration",
     "accounts",
+    "documents",
+    "chat",
 
-    'drf_spectacular',
+    
 ]
 
 MIDDLEWARE = [
@@ -178,9 +181,10 @@ REST_AUTH = {
 }
 
 # django-allauth
-ACCOUNT_AUTHENTICATION_METHOD = "email"  # Use Email / Password authentication
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_REQUIRED = True
+# Use email for authentication (deprecated setting replaced below)
+ACCOUNT_LOGIN_METHODS = {"email"}
+# Configure signup fields instead of username/email required flags
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_EMAIL_VERIFICATION = "none"  # Do not require email confirmation
 
 

@@ -14,7 +14,8 @@ class ChatSession(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f"{self.name} - ({self.sesseion_id})"
+        # session_id is the unique identifier for the chat session
+        return f"{self.name} - ({self.session_id})"
     
 
 

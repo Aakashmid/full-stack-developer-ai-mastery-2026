@@ -35,10 +35,10 @@ urlpatterns = [
 
 
     # chat session and query management
-    path("api/v1/c/", include("chat.urls")),
+    path("api/v1/chats/", include("chat.urls")),
 
     # documents and category management 
-    path("api/v1/", include("documents.urls")),  
+    path("api/v1/documents/", include("documents.urls")),  
 ]
 
 

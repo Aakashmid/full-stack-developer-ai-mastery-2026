@@ -3,6 +3,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
+from rest_framework.response import Response
+from rest_framework import status
+
 from .models import ChatSession, ChatQuery
 from .serializers import ChatSessionSerializer, QuerySerializer
 
@@ -30,7 +33,7 @@ class ChatSessionViewSet(ModelViewSet):
         chat_session = self.get_object()
         query_text = request.data.get('query')
 
-        # Here you would implement your logic to generate a response based on the query
+        # Here we would implement our logic to generate a response based on the query
         # and the context of the chat session (e.g., using the associated documents).
         response_text = f"Response to: {query_text}"  # Placeholder response
 
@@ -40,6 +43,9 @@ class ChatSessionViewSet(ModelViewSet):
         # Serialize and return the response
         serializer = QuerySerializer(chat_query)
         return Response(serializer.data)
+    
+
+    
     
 
 class QueryListView(ListAPIView):

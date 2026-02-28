@@ -14,4 +14,4 @@ class ChatSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatSession
         fields = "__all__"
-        read_only_fields = ("user", "sesseion_id")
+        read_only_fields = ("user", "session_id")
