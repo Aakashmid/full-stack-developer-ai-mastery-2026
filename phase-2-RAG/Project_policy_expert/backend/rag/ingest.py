@@ -1,8 +1,6 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_chroma import Chroma
-# from langchain_huggingface import HuggingFaceEmbeddings
-from decouple import config
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from rag.vectorstore import get_vectorstore
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
@@ -33,18 +31,7 @@ def ingest_document(document):
         })
 
 
-    # 3. create embeddings and ingest into Chroma
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/gemini-embedding-001",
-        api_key=config("GEMINI_API_KEY"),
-    )
-
-    # chroma instance for the document
-    vector_store = Chroma(
-        collection_name=f"docs_collection",
-        embedding_function=embeddings,
-        persist_directory="./local_chromaDb/",  # local directory where data stored
-    )
+    vector_store = get_vectorstore()
 
     # filter out empty chunks (these will produce empty embeddings)
     non_empty_chunks = [c for c in chunks if c.page_content and c.page_content.strip()]

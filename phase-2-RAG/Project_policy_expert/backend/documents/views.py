@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from .models import  Document
 import hashlib
 from .serializers import DocumentSerializer
-from .services.ingest import ingest_document
+from ..services.ingest import ingest_document
 
 
 

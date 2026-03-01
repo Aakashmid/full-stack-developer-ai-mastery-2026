@@ -180,12 +180,27 @@ REST_AUTH = {
     "JWT_AUTH_HTTPONLY": False,  # Makes sure refresh token is sent
 }
 
+
+
 # django-allauth
-# Use email for authentication (deprecated setting replaced below)
-ACCOUNT_LOGIN_METHODS = {"email"}
-# Configure signup fields instead of username/email required flags
-ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-ACCOUNT_EMAIL_VERIFICATION = "none"  # Do not require email confirmation
+# ACCOUNT_AUTHENTICATION_METHOD = "email"
+# ACCOUNT_EMAIL_REQUIRED = True          # legacy (needed for dj-rest-auth)
+# ACCOUNT_USERNAME_REQUIRED = True       # legacy (needed for dj-rest-auth)
+
+# ACCOUNT_SIGNUP_FIELDS = {
+#     "username": {"required": True},
+#     "email": {"required": True},
+#     "password1": {"required": True},
+#     "password2": {"required": True},
+# }
+
+# ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"  # Use Email / Password authentication
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none" # Do not require email confirmation
 
 
 # django-allauth social
