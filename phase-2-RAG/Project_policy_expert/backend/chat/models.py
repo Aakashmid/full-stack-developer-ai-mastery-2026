@@ -24,9 +24,9 @@ class ChatSession(models.Model):
 class ChatQuery(models.Model):
     chat_session = models.ForeignKey(ChatSession, on_delete=models.CASCADE, related_name="queries")
     query = models.TextField()
-    response = models.TextField(default="")
+    response_text = models.TextField(default="")
 
-    source_docs = models.ManyToManyField("documents.Document", related_name="chat_queries")  # source documents for the query
+    # source_docs = models.ManyToManyField("documents.Document", related_name="chat_queries")  # source documents for the query
 
     timestamp = models.DateTimeField(auto_now_add=True)
 

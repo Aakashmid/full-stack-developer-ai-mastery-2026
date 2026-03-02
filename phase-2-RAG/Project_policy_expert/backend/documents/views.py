@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from .models import  Document
 import hashlib
 from .serializers import DocumentSerializer
-from ..services.ingest import ingest_document
+from rag.ingest import ingest_document
 
 
 
@@ -32,13 +32,17 @@ class DocumentUploadListView(generics.ListCreateAPIView):
     
 
     def create(self, request, *args, **kwargs):
-        uploaded_file = request.FILES['file']
+        uploaded_file = request.data.get('file')
+
+        if not uploaded_file:
+            return Response({"error": "No file provided."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Compute SHA-256 hash
         sha256 = hashlib.sha256()
         for chunk in uploaded_file.chunks():
             sha256.update(chunk)
         file_hash = sha256.hexdigest()
+
 
         # Check for duplicate
         if Document.objects.filter(file_hash=file_hash).exists():
@@ -48,20 +52,29 @@ class DocumentUploadListView(generics.ListCreateAPIView):
             )
 
        
-        # Initialize serializer
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
 
-        # Save document with extra fields
-        document = serializer.save(
+        # document = serializer.save(
+        #     uploaded_by=self.request.user,
+        #     file_hash=file_hash
+        # )
+
+        # Save document temporarily to get file path for ingest
+        document = Document(
             uploaded_by=self.request.user,
+            file = uploaded_file,
             file_hash=file_hash
         )
-
+        document.save()
 
         # ingest into chroma immediately after upload
-        ingest_document(document)
+        try :
+            ingest_document(document)
+        except Exception as e:
+            document.delete()
+            return Response({"error": f"Failed to save document: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+        serializer = self.get_serializer(document)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class DocumentDestrogyView(generics.DestroyAPIView):

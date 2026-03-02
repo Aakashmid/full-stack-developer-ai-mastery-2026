@@ -36,8 +36,9 @@ def ingest_document(document):
     # filter out empty chunks (these will produce empty embeddings)
     non_empty_chunks = [c for c in chunks if c.page_content and c.page_content.strip()]
     if not non_empty_chunks:
+        print("No non-empty text chunks found for document id=%s, skipping ingest", document.id)
         # logger.warning("No non-empty text chunks found for document id=%s, skipping ingest", document.id)
-        return
+        # return ValueError("No non-empty text chunks found for document id=%s, skipping ingest" % document.id)
 
     # try:
     #     vector_store.add_documents(non_empty_chunks)
