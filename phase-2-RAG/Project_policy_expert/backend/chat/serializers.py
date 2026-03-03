@@ -7,7 +7,8 @@ class QuerySerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatQuery
         fields = "__all__"
-        read_only_fields = ("chat_session", "response","source_docs")
+        # read_only_fields = ("chat_session", "response","source_docs")
+        read_only_fields = ("chat_session", "response")
 
 
 class ChatSessionSerializer(serializers.ModelSerializer):

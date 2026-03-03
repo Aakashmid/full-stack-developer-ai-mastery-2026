@@ -1,7 +1,20 @@
-from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader,UnstructuredPDFLoader
 from langchain_chroma import Chroma
 from rag.vectorstore import get_vectorstore
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from decouple import config
+import fitz #PyMuPDF for OCR and text extraction from scanned PDFs
+
+# load  text from image based pdfs using  OCR
+def is_scanned_pdf(pdf_path):
+    doc = fitz.open(pdf_path)
+    for page in doc:
+        if page.get_text().strip():
+            doc.close()
+            return False  # Has text → not scanned
+    doc.close()
+    return True  # No text → likely scanned
+
 
 
 def ingest_document(document):
@@ -11,7 +24,10 @@ def ingest_document(document):
 
     # 1. loading file 
     file_path =  document.file.path
-    loader = PyPDFLoader(file_path)
+    if is_scanned_pdf(file_path):
+        loader = UnstructuredPDFLoader(file_path,poppler_path=config("POPPLER_PATH"),strategy="ocr_only")  # Use OCR-capable loader for scanned PDFs
+    else :
+        loader = PyPDFLoader(file_path)
 
     docs = loader.load()
 
@@ -35,20 +51,6 @@ def ingest_document(document):
 
     # filter out empty chunks (these will produce empty embeddings)
     non_empty_chunks = [c for c in chunks if c.page_content and c.page_content.strip()]
-    if not non_empty_chunks:
-        print("No non-empty text chunks found for document id=%s, skipping ingest", document.id)
-        # logger.warning("No non-empty text chunks found for document id=%s, skipping ingest", document.id)
-        # return ValueError("No non-empty text chunks found for document id=%s, skipping ingest" % document.id)
-
-    # try:
-    #     vector_store.add_documents(non_empty_chunks)
-    # except ValueError as e:
-    #     # This often means the embedding call returned an empty list; log details for debugging
-    #     logger.exception("Failed to upsert embeddings for document id=%s: %s", document.id, str(e))
-    #     raise
-    # except Exception:
-    #     logger.exception("Unexpected error while adding documents to vector store for document id=%s", document.id)
-    #     raise
 
     vector_store.add_documents(non_empty_chunks)
     

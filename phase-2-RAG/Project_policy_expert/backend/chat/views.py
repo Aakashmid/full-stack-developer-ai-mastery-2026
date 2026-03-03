@@ -37,24 +37,6 @@ class ChatSessionViewSet(ModelViewSet):
         # Return only chat sessions belonging to the authenticated user
         return ChatSession.objects.filter(user=self.request.user)
 
-
-    @action(detail=True, methods=['post'], url_path='ask')
-    def ask(self, request, pk=None):
-        chat_session = self.get_object()
-        query_text = request.data.get('query')
-
-        # Here we would implement our logic to generate a response based on the query
-        # and the context of the chat session (e.g., using the associated documents).
-        response_text = f"Response to: {query_text}"  # Placeholder response
-
-        # Create a new ChatQuery instance
-        chat_query = ChatQuery.objects.create(chat_session=chat_session, query=query_text, response=response_text)
-
-        # Serialize and return the response
-        serializer = QuerySerializer(chat_query)
-        return Response(serializer.data)
-    
-
     
     
 
@@ -101,11 +83,17 @@ class QueryListCreateView(ListCreateAPIView):
             return Response({"error": "No documents associated with this chat session."}, status=status.HTTP_400_BAD_REQUEST)
 
 
-        # here llm function to generate response and associate source documents with the chat query
-        response = llm_generate_response(query_text, doc_ids)  # Placeholder function to generate response based on query and associated documents\
+        try: 
+            # here llm function to generate response and associate source documents with the chat query
+            response = llm_generate_response(query_text, doc_ids)  # Placeholder function to generate response based on query and associated documents\
+        except Exception as e:
+            return Response({"error": f"Failed to generate response: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+                
         answer = response.get("answer", "")
         if not answer or answer.strip() == "" :
-            return Response({"error": "Failed to generate response."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Failed to generate response Try again ."}, status=status.HTTP_400_BAD_REQUEST)
+
 
         # Save document with extra fields
         serializer.save(
@@ -113,12 +101,6 @@ class QueryListCreateView(ListCreateAPIView):
             response_text=answer,
             # source_docs=docs  # will use later 
         )
-
-
-        # if response_text is empty or generation failed  return an error response
-
-        # if response_text is generated successfully, we can associate source documents with the chat query
-        # For example, if we have a list of document IDs that were used to generate the response, we can associate them with the chat query like this:
 
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
