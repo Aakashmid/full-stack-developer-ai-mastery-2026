@@ -25,8 +25,10 @@ def ingest_document(document):
     # 1. loading file 
     file_path =  document.file.path
     if is_scanned_pdf(file_path):
+        print("Processing scanned PDF... using OCR")
         loader = UnstructuredPDFLoader(file_path,poppler_path=config("POPPLER_PATH"),strategy="ocr_only")  # Use OCR-capable loader for scanned PDFs
     else :
+        print("Processing regular PDF...")
         loader = PyPDFLoader(file_path)
 
     docs = loader.load()
@@ -37,6 +39,9 @@ def ingest_document(document):
         chunk_size=1000, chunk_overlap=200, add_start_index=True
     )
     chunks = text_splitter.split_documents(docs)
+
+    if len(chunks) > 300:
+        raise ValueError("Document is too large ")  # set a limit to avoid memory issues during embedding generation
 
     # update metadata for each chunk
     for chunk in chunks:
@@ -52,7 +57,14 @@ def ingest_document(document):
     # filter out empty chunks (these will produce empty embeddings)
     non_empty_chunks = [c for c in chunks if c.page_content and c.page_content.strip()]
 
-    vector_store.add_documents(non_empty_chunks)
+
+    # batch chunks into groups of 100 to avoid memory issues during embedding generation
+    batch_size = 100
+    for i in range(0, len(non_empty_chunks), batch_size):
+        batch = non_empty_chunks[i:i + batch_size] 
+        vector_store.add_documents(batch)
+
+    # vector_store.add_documents(non_empty_chunks)
     
     document.processed = True
     document.save()

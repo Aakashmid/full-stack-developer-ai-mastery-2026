@@ -243,3 +243,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 
+import warnings
+
+warnings.filterwarnings(
+    "ignore",
+    category=UserWarning,
+    module="dj_rest_auth"
+)

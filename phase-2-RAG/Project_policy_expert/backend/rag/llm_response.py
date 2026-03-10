@@ -1,12 +1,13 @@
 
 from rag.vectorstore import get_vectorstore
 from langchain_google_genai import ChatGoogleGenerativeAI
+from decouple import config
 
 vector_store = get_vectorstore()
 
 def get_llm():
     print("Initializing LLM...")
-    return  ChatGoogleGenerativeAI(model="gemini-2.5-flash-lite" ,temperature=0.2)
+    return  ChatGoogleGenerativeAI(model="gemini-2.5-flash-lite" ,temperature=0.2,api_key=config("GEMINI_API_KEY"))
 
 
 SYSTEM_PROMPT = """You are a helpful assistant for answering questions based on the provided context. Use the context to answer the question as accurately as possible. If the context does not contain enough information to answer the question, say  give reason of not getting result (like "The requested information is not available in the provided documents.") . Always provide a concise answer based on the context. Don't hallucinate information that is not present in the context. If the question is unrelated to the context, politely inform the user that you can only answer questions related to the provided information."""
