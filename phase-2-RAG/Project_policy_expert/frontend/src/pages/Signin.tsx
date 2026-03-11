@@ -1,15 +1,16 @@
-import React from 'react'
 import CommonAuthForm from '@/components/CommonAuthForm'
-const Signup = () => {
+import React from 'react'
+
+const Signin = () => {
   const handleSubmit = (payload) => {
-    console.log("Signup payload:", payload);
+    console.log("Signin payload:", payload);
     // Implement actual sign-in logic here, such as making an API call to your backend.
   }
 
   return (
     <div className='h-screen w-screen flex flex-col justify-center items-center gap-10'>
 
-      {/* logo and slogan */}
+    {/* logo and slogan */}
       <div className="flex flex-col gap-0.5">
         <div className="flex justify-center items-center gap-3">
           <img src="/images/logo-img.png" className='object-cover w-8 h-auto' alt="" />
@@ -18,8 +19,10 @@ const Signup = () => {
         <p className="text-sm   text-text-secondary">Your documents, instantly understood.</p>
       </div>
 
-      <CommonAuthForm onSubmit={handleSubmit} mode='signup' />
-    </div>)
+
+      <CommonAuthForm onSubmit={handleSubmit} mode='signin'/>
+    </div>
+  )
 }
 
-export default Signup
+export default Signin

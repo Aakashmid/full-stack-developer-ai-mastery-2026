@@ -1,0 +1,31 @@
+import React from 'react'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import ProtectedRoute from './ProtectedRoute'
+import QueryPage from '@/pages/QueryPage'
+import Signin from '@/pages/Signin'
+import Signup from '@/pages/Signup'
+import ServerError from '@/pages/ServerError'
+import NotFound from '@/pages/NotFound'
+
+const Approutes = () => {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/" element={<QueryPage />} />
+                    <Route path="/c/:query_token" element={<QueryPage />} />
+                </Route>
+                <Route path='/auth'>
+                    <Route path="signin" element={<Signin />} />
+                    <Route path="signup" element={<Signup />} />
+                </Route>
+                <Route path="/server-error" element={<ServerError />} />
+
+                {/* for not found use alert message or not found page  */}
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
+    )
+}
+
+export default Approutes
