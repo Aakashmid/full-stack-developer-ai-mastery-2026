@@ -13,12 +13,13 @@ const Approutes = () => {
             <Routes>
                 <Route element={<ProtectedRoute />}>
                     <Route path="/" element={<QueryPage />} />
-                    <Route path="/c/:query_token" element={<QueryPage />} />
+                    <Route path="/c/:chat_token" element={<QueryPage />} />
                 </Route>
                 <Route path='/auth'>
                     <Route path="signin" element={<Signin />} />
                     <Route path="signup" element={<Signup />} />
                 </Route>
+                
                 <Route path="/server-error" element={<ServerError />} />
 
                 {/* for not found use alert message or not found page  */}

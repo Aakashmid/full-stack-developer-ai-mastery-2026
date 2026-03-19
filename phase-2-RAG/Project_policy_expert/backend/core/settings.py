@@ -178,6 +178,7 @@ REST_AUTH = {
     "JWT_AUTH_COOKIE": "_auth",
     "JWT_AUTH_REFRESH_COOKIE": "_refresh",
     "JWT_AUTH_HTTPONLY": False,  # Makes sure refresh token is sent
+    "LOGIN_SERIALIZER": "accounts.serializers.CustomLoginSerializer",
 }
 
 

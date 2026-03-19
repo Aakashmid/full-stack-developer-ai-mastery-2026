@@ -17,6 +17,7 @@ urlpatterns = [
 
     # Authentication URLs
     path("login/", LoginPage.as_view(), name="login"),
+    
     path("api/v1/auth/", include("dj_rest_auth.urls")),
 
 

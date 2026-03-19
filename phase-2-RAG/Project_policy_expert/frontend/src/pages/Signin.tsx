@@ -1,8 +1,8 @@
 import CommonAuthForm from '@/components/CommonAuthForm'
-import React from 'react'
+import type { SigninPayload } from '@/types';
 
 const Signin = () => {
-  const handleSubmit = (payload) => {
+  const handleSubmit = (payload:SigninPayload) => {
     console.log("Signin payload:", payload);
     // Implement actual sign-in logic here, such as making an API call to your backend.
   }
@@ -20,7 +20,7 @@ const Signin = () => {
       </div>
 
 
-      <CommonAuthForm onSubmit={handleSubmit} mode='signin'/>
+      <CommonAuthForm submit={handleSubmit} mode='signin'/>
     </div>
   )
 }

@@ -1,8 +1,9 @@
-import React from 'react'
 import CommonAuthForm from '@/components/CommonAuthForm'
+import type {  SignupPayload } from '@/types';
 const Signup = () => {
-  const handleSubmit = (payload) => {
-    console.log("Signup payload:", payload);
+  const handleSubmit = (payload:SignupPayload) => {
+    // if(payload.username)
+    // console.log("Signup payload:", payload);
     // Implement actual sign-in logic here, such as making an API call to your backend.
   }
 
@@ -18,7 +19,7 @@ const Signup = () => {
         <p className="text-sm   text-text-secondary">Your documents, instantly understood.</p>
       </div>
 
-      <CommonAuthForm onSubmit={handleSubmit} mode='signup' />
+      <CommonAuthForm submit={handleSubmit} mode='signup' />
     </div>)
 }
 
