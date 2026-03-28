@@ -1,32 +1,35 @@
-import React from 'react'
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import ProtectedRoute from './ProtectedRoute'
-import QueryPage from '@/pages/QueryPage'
-import Signin from '@/pages/Signin'
-import Signup from '@/pages/Signup'
-import ServerError from '@/pages/ServerError'
-import NotFound from '@/pages/NotFound'
+import React from "react";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
+import QueryPage from "@/pages/QueryPage";
+import Signin from "@/pages/Signin";
+import Signup from "@/pages/Signup";
+import ServerError from "@/pages/ServerError";
+import NotFound from "@/pages/NotFound";
+import AuthProvider from "@/context/AuthProvider";
 
 const Approutes = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<ProtectedRoute />}>
-                    <Route path="/" element={<QueryPage />} />
-                    <Route path="/c/:chat_token" element={<QueryPage />} />
-                </Route>
-                <Route path='/auth'>
-                    <Route path="signin" element={<Signin />} />
-                    <Route path="signup" element={<Signup />} />
-                </Route>
-                
-                <Route path="/server-error" element={<ServerError />} />
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<QueryPage />} />
+            <Route path="/c/:chat_token" element={<QueryPage />} />
+          </Route>
+          <Route path="/auth">
+            <Route path="signin" element={<Signin />} />
+            <Route path="signup" element={<Signup />} />
+          </Route>
 
-                {/* for not found use alert message or not found page  */}
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </BrowserRouter>
-    )
-}
+          <Route path="/server-error" element={<ServerError />} />
 
-export default Approutes
+          {/* for not found use alert message or not found page  */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  );
+};
+
+export default Approutes;

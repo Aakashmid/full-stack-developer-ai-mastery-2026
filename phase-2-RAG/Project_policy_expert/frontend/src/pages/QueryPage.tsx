@@ -1,9 +1,12 @@
-import React from 'react'
+import Sidebar from "@/components/Sidebar";
+import React from "react";
 
 const QueryPage = () => {
   return (
-    <div>QueryPage</div>
-  )
-}
+    <div>
+      <Sidebar />
+    </div>
+  );
+};
 
-export default QueryPage
+export default QueryPage;

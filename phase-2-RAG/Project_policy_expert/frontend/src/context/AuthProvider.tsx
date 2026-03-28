@@ -54,42 +54,48 @@ const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         password: payload.password,
       };
 
-      const res = await apiClient.post(`/auth/login/`, dataToSend);
+      const res = await apiClient.post(`auth/login/`, dataToSend);
 
       const { access, refresh, user: userData } = res.data;
 
       saveTokens(access, refresh);
       setUser(userData);
     } catch (error: any) {
-      console.error("Signin failed:", error?.response?.data || error.message);
+      let data = error.respone.data;
+      let message: string = "Signin failed. Try again.";
 
-      throw new Error(
-        error?.response?.data?.detail || "Login failed. Try again."
-      );
+      if (data && typeof data === "object") {
+        // Flatten all error arrays into a single string
+        message = Object.values(data).flat().join("\n");
+      }
+
+      throw new Error(message);
     }
   };
-
 
   /**
    * SIGN UP
    */
   const signupAction = async (payload: SignupPayload): Promise<void> => {
     try {
-      const res = await apiClient.post(`/auth/registration/`, payload);
+      const res = await apiClient.post(`auth/registration/`, payload);
       const { access, refresh, user: userData } = res.data;
 
       saveTokens(access, refresh);
       setUser(userData);
-      
     } catch (error: any) {
-      console.error("Signup failed:", error?.response?.data || error.message);
+      const data = error?.response?.data;
 
-      throw new Error(
-        error?.response?.data?.detail || "Signup failed. Try again."
-      );
+      let message: string = "Signup failed. Try again.";
+
+      if (data && typeof data === "object") {
+        // Flatten all error arrays into a single string
+        message = Object.values(data).flat().join("\n");
+      }
+
+      throw new Error(message);
     }
   };
-
 
   /**
    * SIGN OUT
@@ -112,7 +118,7 @@ const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     signinAction,
     signupAction,
     signoutAction,
-    isAuthenticated: !!user,
+    isAuthenticated: !!localStorage.getItem("access_token"),
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

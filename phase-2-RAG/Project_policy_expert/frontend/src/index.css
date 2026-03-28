@@ -1,55 +1,47 @@
 @import "tailwindcss";
 
-
-@theme{
-  --color-primary:#008170;
-  --color-accent:#005B41;
-  --color-surface:#232D3F;
-  --color-bg:#0F0F0F; 
-  --color-text-primary:#FFFFFF; 
-  --color-text-secondary:#94A3B8; 
-  --color-text-muted:#475569; 
-
+@theme {
+  --color-primary: #008170;
+  --color-accent: #005b41;
+  --color-surface: #232d3f;
+  --color-bg: #0f0f0f;
+  --color-textPrimary: #ffffff;
+  --color-textSecondary: #94a3b8;
+  --color-textMuted: #475569;
 
   /* custom font */
-  --font-manrope: 'Manrope';
+  --font-manrope: "Manrope";
+  --font-open-sans: "Open Sans";
 }
 
 body {
-  @apply bg-bg text-text-primary font-manrope;
+  @apply bg-bg text-textPrimary font-manrope;
 }
-
-
 
 /* auth page related css */
-.auth-form-input{
-  @apply text-text-primary  rounded-[12px] border-2 border-accent px-3 py-2 focus:outline-none focus:bg-transparent outline-none
+.auth-form-input {
+  @apply text-textPrimary  rounded-xl border-2 border-accent px-3 py-2 focus:outline-none focus:bg-transparent outline-none;
 }
 
-
-.primary-btn{
-  @apply bg-primary rounded-[20px] text-center w-full px-3 py-2 hover:bg-[#07AD97] transition-colors duration-300 cursor-pointer
+.primary-btn {
+  @apply bg-primary rounded-[20px] text-center w-full px-3 py-2 hover:bg-[#07AD97] transition-colors duration-300 cursor-pointer;
+}
+.primary-btn:disabled {
+  @apply bg-primary rounded-[20px] text-center w-full px-3 py-2 cursor-not-allowed;
 }
 
-.google-btn{
-  @apply  rounded-[20px] text-center w-full px-3 py-2 bg-[#171B24]/80  flex 
-  items-center justify-center  gap-2 transition-colors duration-300 cursor-pointer hover:bg-[#171B24]
+.google-btn {
+  @apply rounded-[20px] text-center w-full px-3 py-2 bg-[#171B24]/80  flex 
+  items-center justify-center  gap-2 transition-colors duration-300 cursor-pointer hover:bg-[#171B24];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-@font-face{
-  font-family: 'Manrope';
+@font-face {
+  font-family: "Manrope";
   font-display: swap;
-  src: url('/public/fonts/Manrope-VariableFont_wght.ttf') ;
+  src: url("/public/fonts/Manrope-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/public/fonts/OpenSans-VariableFont_wdth,wght.ttf");
 }

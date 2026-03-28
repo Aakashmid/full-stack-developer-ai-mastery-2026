@@ -179,23 +179,11 @@ REST_AUTH = {
     "JWT_AUTH_REFRESH_COOKIE": "_refresh",
     "JWT_AUTH_HTTPONLY": False,  # Makes sure refresh token is sent
     "LOGIN_SERIALIZER": "accounts.serializers.CustomLoginSerializer",
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
 }
 
 
 
-# django-allauth
-# ACCOUNT_AUTHENTICATION_METHOD = "email"
-# ACCOUNT_EMAIL_REQUIRED = True          # legacy (needed for dj-rest-auth)
-# ACCOUNT_USERNAME_REQUIRED = True       # legacy (needed for dj-rest-auth)
-
-# ACCOUNT_SIGNUP_FIELDS = {
-#     "username": {"required": True},
-#     "email": {"required": True},
-#     "password1": {"required": True},
-#     "password2": {"required": True},
-# }
-
-# ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"  # Use Email / Password authentication
@@ -251,3 +239,5 @@ warnings.filterwarnings(
     category=UserWarning,
     module="dj_rest_auth"
 )
+
+AUTH_PASSWORD_VALIDATORS = []

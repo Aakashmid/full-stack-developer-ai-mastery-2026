@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import Approutes from './routes/Approutes'
+import { useState } from "react";
+import Approutes from "./routes/Approutes";
 
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
     <>
-      <Approutes/>
+      <Approutes />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

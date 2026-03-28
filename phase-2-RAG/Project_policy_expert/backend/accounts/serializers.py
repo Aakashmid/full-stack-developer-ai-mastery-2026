@@ -1,6 +1,7 @@
 # backend/accounts/serializers.py
 from django.contrib.auth import authenticate, get_user_model
 from rest_framework import serializers
+from dj_rest_auth.registration.serializers import RegisterSerializer
 from django.utils.translation import gettext_lazy as _
 
 class CustomLoginSerializer(serializers.Serializer):
@@ -27,3 +28,25 @@ class CustomLoginSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
+
+
+# auth/serializers.py
+
+
+class CustomRegisterSerializer(RegisterSerializer):
+    password = serializers.CharField(write_only=True)
+    password1 = None
+    password2 = None
+    
+
+    def validate(self, data):
+        # inject password into expected fields
+        data['password1'] = data.get('password')
+        data['password2'] = data.get('password')
+        return data
+
+    def get_cleaned_data(self):
+        data = super().get_cleaned_data()
+        data['password1'] = self.validated_data.get('password')
+        data['password2'] = self.validated_data.get('password')
+        return data
