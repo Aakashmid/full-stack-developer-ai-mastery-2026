@@ -139,7 +139,7 @@ export default function AuthForm(props: Props) {
       </div>
 
       <div className="flex flex-col  items-center">
-        <button className="google-btn">
+        <button className="secondary-btn">
           <img
             src="/images/google.png"
             className="object-cover w-5 h-5"

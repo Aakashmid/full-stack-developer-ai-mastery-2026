@@ -8,7 +8,7 @@
   --color-textPrimary: #ffffff;
   --color-textSecondary: #94a3b8;
   --color-textMuted: #475569;
-
+  --color-lightPrimary: #07ad97;
   /* custom font */
   --font-manrope: "Manrope";
   --font-open-sans: "Open Sans";
@@ -30,9 +30,32 @@ body {
   @apply bg-primary rounded-[20px] text-center w-full px-3 py-2 cursor-not-allowed;
 }
 
-.google-btn {
+.secondary-btn {
   @apply rounded-[20px] text-center w-full px-3 py-2 bg-[#171B24]/80  flex 
   items-center justify-center  gap-2 transition-colors duration-300 cursor-pointer hover:bg-[#171B24];
+}
+
+/* sidebar styles */
+
+.chat-li {
+  @apply cursor-pointer py-2.5 px-5 bg-black/20   transition-colors relative;
+}
+
+.chat-li:hover {
+  @apply border-l-2 border-primary bg-linear-to-r from-0% from-[#005B41]/5 to-100% to-primary/51;
+}
+
+.active-chat-li {
+  @apply border-l-2 border-primary bg-linear-to-r from-0% from-[#005B41]/5 to-100% to-primary/51 cursor-pointer py-2.5 px-5  transition-colors relative;
+}
+
+.icon-btn {
+  @apply w-7 h-7 text-primary hover:text-lightPrimary;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: theme(--color-textMuted) transparent;
 }
 
 @font-face {
