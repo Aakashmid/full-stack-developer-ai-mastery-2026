@@ -12,6 +12,7 @@
   /* custom font */
   --font-manrope: "Manrope";
   --font-open-sans: "Open Sans";
+  --shadow-custom: 0 0 20px 0 rgba(0, 0, 0, 0.4);
 }
 
 body {
@@ -36,7 +37,6 @@ body {
 }
 
 /* sidebar styles */
-
 .chat-li {
   @apply cursor-pointer py-2.5 px-5 bg-black/20   transition-colors relative;
 }
@@ -56,6 +56,12 @@ body {
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: theme(--color-textMuted) transparent;
+}
+
+/* upload document bar styles */
+
+.doc-collection {
+  @apply divide-y  shadow-custom divide-gray-600 rounded-xl;
 }
 
 @font-face {

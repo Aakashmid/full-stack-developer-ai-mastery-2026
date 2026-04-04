@@ -11,19 +11,19 @@ import {
 } from "lucide-react";
 import Logo from "./sidebar-components/Logo";
 
-const Sidebar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isActive, setIsActive] = useState<number | null>(null);
-
-  const toggleSidebar = () => {
-    setIsOpen((prev) => !prev);
-  };
-
+const Sidebar = ({
+  isOpen,
+  toggleSidebar,
+}: {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}) => {
+  const [isActive, setIsActive] = useState<number | null>(null); // for active chat highlishting , will have chat token in real implementation instead of index
   return (
     <>
       {/* open sidebar */}
       <div
-        className={`${isOpen ? "translate-x-0" : "-translate-x-100"} w-80 flex flex-col bg-surface text-textPrimary h-dvh transition-all duration-300 overflow-hidden fixed  z-10`}
+        className={`${isOpen ? "translate-x-0" : "-translate-x-100"} w-80 flex flex-col bg-surface text-textPrimary h-dvh transition-all duration-300 overflow-hidden fixed  z-50`}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-3">
@@ -109,7 +109,7 @@ const Sidebar: React.FC = () => {
 
       {/* collapsed sidebar */}
       <div
-        className={`${isOpen ? "hidden" : "w-fit"} h-dvh transition-all duration-300 bg-surface px-4 py-4 fixed top-0`}
+        className={`${isOpen ? "hidden" : "w-fit"} h-dvh transition-all duration-300 bg-surface px-4 py-4 fixed z-40 top-0`}
       >
         <div className="flex flex-col  gap-6">
           <button className="cursor-pointer" onClick={() => toggleSidebar()}>

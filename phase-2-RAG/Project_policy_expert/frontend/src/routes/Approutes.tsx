@@ -7,6 +7,7 @@ import Signup from "@/pages/Signup";
 import ServerError from "@/pages/ServerError";
 import NotFound from "@/pages/NotFound";
 import AuthProvider from "@/context/AuthProvider";
+import QueryPageLayout from "@/layouts/QueryPageLayout";
 
 const Approutes = () => {
   return (
@@ -14,9 +15,12 @@ const Approutes = () => {
       <AuthProvider>
         <Routes>
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<QueryPage />} />
-            <Route path="/c/:chat_token" element={<QueryPage />} />
+            <Route element={<QueryPageLayout />}>
+              <Route path="/" element={<QueryPage />} />
+              <Route path="/c/:chat_token" element={<QueryPage />} />
+            </Route>
           </Route>
+
           <Route path="/auth">
             <Route path="signin" element={<Signin />} />
             <Route path="signup" element={<Signup />} />
