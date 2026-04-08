@@ -1,3 +1,4 @@
+import { chatApiService } from "@/apiServices/chatApiService";
 import type { ChatSession, Message } from "@/types";
 import { createContext, useState, type ReactNode } from "react";
 
@@ -56,7 +57,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       throw new Error("No documents selected");
     }
 
-    const newChat = await chatService.createChat(selectedDocIds);
+    // const newChat = await chatApiService.createChat(selectedDocIds);
 
     setChats((prev) => [newChat, ...prev]);
     setActiveChatId(newChat.id);

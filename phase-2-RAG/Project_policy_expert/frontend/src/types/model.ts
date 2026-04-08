@@ -1,6 +1,9 @@
 
 
 // ##################################
+
+import type { User } from "@/context/AuthProvider";
+
 // Auth model data types
 export interface SignupPayload {
     username: string;
@@ -22,13 +25,21 @@ export interface UploadDocumentPayload {
     category?: string;
 }
 
-export interface DocumentType {
-    id: string;
-    file: string ;
-    file_hash: string ;
-    upload_at:Date ;
-    upload_by:number ;
-    category:number;
+export type Document = {
+  id: number
+  file: string
+  file_hash: string
+  processed: boolean
+  uploaded_at: string
+  uploaded_by: number
+  category: number | null
+}
+
+export type Category = {
+  id: number
+  name: string
+  created_at: string
+  created_by: number
 }
 
 

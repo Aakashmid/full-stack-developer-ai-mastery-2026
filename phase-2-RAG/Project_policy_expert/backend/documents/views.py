@@ -27,7 +27,7 @@ class CategoryViewset(ModelViewSet):
 
 # custom serializer to show categorized and uncategorized documents in the same response for the GET /documents/ endpoint
 class DocumentOverviewSerializer(serializers.Serializer):
-    categories = CategorySerializer(many=True)
+    categorized = CategorySerializer(many=True)
     uncategorized = DocumentSerializer(many=True)
 
 

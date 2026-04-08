@@ -17,7 +17,7 @@ const UploadDocumentBar = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-0 flex-1   bg-surface rounded-2xl">
+    <div className="flex flex-col min-h-0 flex-1   bg-surface rounded-2xl relative">
       {/* header */}
       <div className="p-4">
         <div className="header border-b border-textMuted ">

@@ -12,10 +12,9 @@ class DocumentSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    documents = DocumentSerializer(many=True, read_only=True)  # nested serializer to show documents in category
     class Meta:
         model = Category
         fields = "__all__"
-        read_only_fields = ("created_by","documents","created_at")
+        read_only_fields = ("created_by","created_at")
 
 

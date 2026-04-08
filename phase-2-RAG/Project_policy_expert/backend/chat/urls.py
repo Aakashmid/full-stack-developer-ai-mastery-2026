@@ -10,5 +10,5 @@ router.register(r'', ChatSessionViewSet, basename='chat-session')
 
 urlpatterns = [
     path('', include(router.urls)),     
-    path('<str:session_id>/queries/',QueryListCreateView.as_view(),name='queries-list-create' ),     
+    path('<str:session_id>/messages/',QueryListCreateView.as_view(),name='messages-list-create' ),     
 ]
