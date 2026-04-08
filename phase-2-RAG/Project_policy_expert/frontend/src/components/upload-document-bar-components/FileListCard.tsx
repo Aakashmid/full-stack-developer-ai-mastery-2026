@@ -40,7 +40,7 @@ const FileListCard: React.FC<Props> = ({
 
             {/* File Name */}
             <p className="text-sm truncate grow">{file.name}</p>
-            <input type="checkbox" name="" id="" />
+            <input type="checkbox" name={file.name} id={file.id} />
           </div>
         ))}
       </div>

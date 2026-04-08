@@ -1,5 +1,4 @@
 import { FolderUp } from "lucide-react";
-import React from "react";
 import FileListCard from "./upload-document-bar-components/FileListCard";
 
 const files = [
@@ -10,6 +9,8 @@ const files = [
 ];
 
 const UploadDocumentBar = () => {
+  // const [docs, setdocs] = useState(second)
+
   const handleOpenUploadForm = () => {
     // Logic to open the upload form goes here
     console.log("Open upload form");
@@ -33,11 +34,11 @@ const UploadDocumentBar = () => {
 
       {/* file list */}
       <div className=" flex flex-col gap-4  px-4 overflow-y-auto custom-scrollbar ">
-        <FileListCard files={files} />
-        <FileListCard files={files} />
-        <FileListCard files={files} />
-        <FileListCard files={files} />
-        <FileListCard files={files} />
+        <FileListCard onClickFile={handleClickFile} files={files} />
+        <FileListCard onClickFile={handleClickFile} files={files} />
+        <FileListCard onClickFile={handleClickFile} files={files} />
+        <FileListCard onClickFile={handleClickFile} files={files} />
+        <FileListCard onClickFile={handleClickFile} files={files} />
       </div>
     </div>
   );

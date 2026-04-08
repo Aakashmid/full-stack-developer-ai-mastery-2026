@@ -7,7 +7,7 @@ User = get_user_model()
 class ChatSession(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     session_id = models.CharField(max_length=255, unique=True , primary_key=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255,default="New Chat")
 
     doc_ids = models.ManyToManyField("documents.Document" , related_name="chat_sessions" )   # context of chat session
 

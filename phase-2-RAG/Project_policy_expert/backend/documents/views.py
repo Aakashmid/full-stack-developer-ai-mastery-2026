@@ -52,7 +52,7 @@ class DocumentUploadListView(generics.ListCreateAPIView):
 
 
         return Response({
-            "categories": categorized_docs,
+            "categorized": categorized_docs,
             "uncategorized": uncategorized_docs
         })
 
