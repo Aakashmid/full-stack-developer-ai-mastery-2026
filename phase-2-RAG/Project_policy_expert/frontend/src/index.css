@@ -60,6 +60,20 @@ body {
 
 /* upload document bar styles */
 
+/* form upload */
+.input-style {
+  @apply w-full bg-bg/30 px-2 py-1 rounded-lg;
+}
+
+.close-upload-form {
+  @apply bg-surface px-4 py-1 rounded-lg cursor-pointer;
+}
+
+.add-file-btn,
+.upload-btn {
+  @apply bg-primary px-4 py-1 rounded-lg cursor-pointer;
+}
+
 .doc-collection {
   @apply divide-y  shadow-custom divide-gray-600 rounded-xl;
 }

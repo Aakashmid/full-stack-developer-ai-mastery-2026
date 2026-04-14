@@ -8,29 +8,32 @@ import ServerError from "@/pages/ServerError";
 import NotFound from "@/pages/NotFound";
 import AuthProvider from "@/context/AuthProvider";
 import QueryPageLayout from "@/layouts/QueryPageLayout";
+import { DocumentProvider } from "@/context/DocumentProvider";
 
 const Approutes = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route element={<ProtectedRoute />}>
-            <Route element={<QueryPageLayout />}>
-              <Route path="/" element={<QueryPage />} />
-              <Route path="/c/:chat_token" element={<QueryPage />} />
+        <DocumentProvider>
+          <Routes>
+            <Route element={<ProtectedRoute />}>
+              <Route element={<QueryPageLayout />}>
+                <Route path="/" element={<QueryPage />} />
+                <Route path="/c/:chat_token" element={<QueryPage />} />
+              </Route>
             </Route>
-          </Route>
 
-          <Route path="/auth">
-            <Route path="signin" element={<Signin />} />
-            <Route path="signup" element={<Signup />} />
-          </Route>
+            <Route path="/auth">
+              <Route path="signin" element={<Signin />} />
+              <Route path="signup" element={<Signup />} />
+            </Route>
 
-          <Route path="/server-error" element={<ServerError />} />
+            <Route path="/server-error" element={<ServerError />} />
 
-          {/* for not found use alert message or not found page  */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* for not found use alert message or not found page  */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </DocumentProvider>
       </AuthProvider>
     </BrowserRouter>
   );

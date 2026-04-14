@@ -1,6 +1,5 @@
 import type { ChatSession, Message } from "@/types";
 import apiClient from "@/utils/apiClient";
-import axios from "axios";
 
 export type CreateChatPayload = {
   doc_ids: string[];

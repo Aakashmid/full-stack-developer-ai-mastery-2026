@@ -1,6 +1,5 @@
 import type { Category } from "@/types";
 import apiClient from "@/utils/apiClient";
-import { List } from "lucide-react";
 
 // /types/document.ts
 
@@ -10,7 +9,13 @@ export type GetDocumentsResponse = {
 };
 
 // upload document with optional category
-const UploadDocument = async (file: File, category?: number): Promise<void> => {
+
+// if return processed false - try again
+
+export const UploadDocument = async (
+  file: File,
+  category?: number,
+): Promise<void> => {
   try {
     const formData = new FormData();
     formData.append("file", file);
@@ -28,7 +33,7 @@ const UploadDocument = async (file: File, category?: number): Promise<void> => {
 };
 
 // get documents with categorized and uncategorized separation
-const getDocuments = async (): Promise<GetDocumentsResponse> => {
+export const getDocuments = async (): Promise<GetDocumentsResponse> => {
   try {
     const res = await apiClient.get("/documents/");
 
@@ -44,7 +49,7 @@ const getDocuments = async (): Promise<GetDocumentsResponse> => {
 };
 
 // create category
-const createCategory = async (name: string): Promise<Category> => {
+export const createCategory = async (name: string): Promise<Category> => {
   try {
     const res = await apiClient.post("/categories/", { name });
     return res.data;
@@ -53,18 +58,11 @@ const createCategory = async (name: string): Promise<Category> => {
   }
 };
 
-const getCategories = async (): Promise<Category[]> => {
+export const getCategories = async (): Promise<Category[]> => {
   try {
     const res = await apiClient.get("/categories/");
     return res.data;
   } catch (error) {
     throw new Error("Failed to fetch categories");
   }
-};
-
-export const documentService = {
-  UploadDocument,
-  getDocuments,
-  createCategory,
-  getCategories,
 };

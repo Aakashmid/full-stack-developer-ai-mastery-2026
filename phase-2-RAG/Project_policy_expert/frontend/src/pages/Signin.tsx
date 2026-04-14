@@ -38,7 +38,7 @@ const Signin = () => {
           Your documents, instantly understood.
         </p>
       </div>
-      <CommonAuthForm submit={handleSubmit} mode="signin" errors={errors} />f
+      <CommonAuthForm submit={handleSubmit} mode="signin" errors={errors} />
     </div>
   );
 };

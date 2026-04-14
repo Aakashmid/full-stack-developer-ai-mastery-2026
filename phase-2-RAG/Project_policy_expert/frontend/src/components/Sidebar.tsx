@@ -1,5 +1,5 @@
 // src/components/Sidebar.tsx
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   MessageCirclePlus,
@@ -10,6 +10,8 @@ import {
   PanelLeftOpen,
 } from "lucide-react";
 import Logo from "./sidebar-components/Logo";
+import { useAuth } from "@/context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({
   isOpen,
@@ -18,7 +20,16 @@ const Sidebar = ({
   isOpen: boolean;
   toggleSidebar: () => void;
 }) => {
+  const navigate = useNavigate();
+  const { signoutAction, isAuthenticated } = useAuth();
   const [isActive, setIsActive] = useState<number | null>(null); // for active chat highlishting , will have chat token in real implementation instead of index
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/auth/signin"); // Navigate when user is authenticated
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <>
       {/* open sidebar */}
@@ -99,7 +110,10 @@ const Sidebar = ({
                 </p>
               </div>
             </div>
-            <button className="secondary-btn flex items-center gap-3 font-medium">
+            <button
+              onClick={signoutAction}
+              className="secondary-btn flex items-center gap-3 font-medium"
+            >
               <LogOut className="h-4 w-4 rotate-180" />
               <span className="">Sign Out</span>
             </button>
