@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 
 type DocumentContextType = {
   categories: Category[];
-  categorizedDocs: Record<number, Document[]>; // categoryId → docs
   uncategorizedDocs: Document[];
   loading: boolean;
   error: string | null;
@@ -52,7 +51,6 @@ export const DocumentProvider = ({ children }: { children: ReactNode }) => {
         uncategorizedDocs,
         loading,
         error,
-        fetchDocuments,
       }}
     >
       {children}
