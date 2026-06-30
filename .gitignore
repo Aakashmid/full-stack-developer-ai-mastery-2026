@@ -1,6 +1,7 @@
 venv/
 .venv/
 
+phase-2-RAG/Project_policy_expert/
 
 .env
 

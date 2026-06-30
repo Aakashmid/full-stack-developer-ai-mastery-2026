@@ -13,8 +13,7 @@ class Debate():
     @agent
     def debater(self) -> Agent:
         return Agent(
-            config=self.agents_config['debater'], # type: ignore[index]
-            llm = ,
+            config=self.agents_config['debater'], # type: ignore[index]  
             verbose=True
         )
 
